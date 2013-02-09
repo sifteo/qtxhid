@@ -18,16 +18,13 @@ To subsequently update to a newer version of yajl, pull the code:
 
 Commands executed when building hidapi 0.7.0:
 
-    $ cd vendor/src/yajl
-    $ mkdir build
-    $ cd build
-    $ cmake ..
+    $ cd vendor/src/hidapi/mac
     $ make
 
-Build output is located in "vendor/src/yajl/yajl-2.0.4".  For convienience, the
-output has been copied into "vendor/bin", "vendor/lib", etc.
+This simply builds an object file, "hid.o", which can be linked with an
+executable.
 
-Refer to "vendor/yajl/BUILDING" for further information.
+Refer to "vendor/src/hidapi/README.txt" for further information.
 
 #### References
 
