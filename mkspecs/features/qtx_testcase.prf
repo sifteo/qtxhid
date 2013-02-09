@@ -1,0 +1,10 @@
+check.commands += $(TESTRUNNER)
+
+macx {
+    check.commands += DYLD_LIBRARY_PATH=../../../lib
+
+    app_bundle: check.commands += ./$(QMAKE_TARGET).app/Contents/MacOS/$(QMAKE_TARGET)
+    else:       check.commands += ./$(QMAKE_TARGET)
+}
+
+QMAKE_EXTRA_TARGETS *= check

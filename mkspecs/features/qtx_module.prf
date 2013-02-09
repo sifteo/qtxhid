@@ -1,0 +1,35 @@
+isEmpty(MODULE):MODULE = $$section($$list($$basename(_PRO_FILE_)), ., 0, 0)
+isEmpty(VERSION):VERSION = $$eval(QTX.$${MODULE}.VERSION)
+
+TEMPLATE = lib
+TARGET   = $$eval(QTX.$${MODULE}.name)
+DESTDIR  = $$eval(QTX.$${MODULE}.libs)
+TARGET   = $$qtxLibraryTarget($$TARGET)
+
+# Build Configurations
+#
+# By default, the module will be built in release mode.  To build in debug mode,
+# or both debug and release mode:
+#
+#     $ qmake [options] "CONFIG+=debug"
+#     $ qmake [options] "CONFIG+=debug_and_release"
+#
+# To build a static library:
+#
+#     $ qmake [options] "CONFIG+=static"
+#
+# On Mac OS X, a framework will be created by default.  To build a dynamic
+# library:
+#
+#     $ qmake [options] "CONFIG+=dylib"
+
+debug_and_release {
+    CONFIG += build_all
+}
+
+mac:!static {
+    CONFIG += lib_bundle
+    dylib {
+        CONFIG -= lib_bundle
+    }
+}

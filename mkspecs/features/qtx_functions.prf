@@ -1,0 +1,22 @@
+defineReplace(qtxPlatformTargetSuffix) {
+    CONFIG(debug, debug|release) {
+        !debug_and_release|build_pass {
+           mac:return(_debug)
+           win32:return(d)
+        }
+    }
+    return()
+}
+
+defineReplace(qtxLibraryTarget) {
+   unset(LIBRARY_NAME)
+   LIBRARY_NAME = $$1
+   mac:!static:contains(CONFIG, framework) {
+      QMAKE_FRAMEWORK_BUNDLE_NAME = $$LIBRARY_NAME
+      export(QMAKE_FRAMEWORK_BUNDLE_NAME)
+   }
+   unset(LIBRARY_SUFFIX)
+   contains(TEMPLATE, .*lib):LIBRARY_SUFFIX = $$qtxPlatformTargetSuffix()
+   isEmpty(LIBRARY_SUFFIX):return($$LIBRARY_NAME)
+   else:return($$member(LIBRARY_NAME, 0)$$LIBRARY_SUFFIX)
+}

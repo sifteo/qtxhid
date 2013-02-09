@@ -1,0 +1,13 @@
+# Mac OS X
+.DS_Store
+
+# C++
+*.o
+*.a
+*.dylib
+
+# Qt
+*.prl
+Makefile
+Makefile.*
+moc_*

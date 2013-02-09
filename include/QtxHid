@@ -1,0 +1,7 @@
+#ifndef QTXHID_MODULE_H
+#define QTXHID_MODULE_H
+
+#include "../src/hid/hidglobal.h"
+#include "../src/hid/hiddevice.h"
+
+#endif
