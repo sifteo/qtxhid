@@ -1,22 +1,22 @@
 This directory contains third-party dependencies used by QtxJson.
 
-## yajl
+## HIDAPI
 
 #### Source Code
 
-The source code of yajl has been added to this repository using `git subtree`:
+The source code of HIDAPI has been added to this repository using `git subtree`:
 
-    $ git subtree add -P vendor/src/yajl --squash git://github.com/lloyd/yajl.git 2.0.4
+    $ git subtree add -P vendor/src/hidapi --squash git://github.com/signal11/hidapi.git hidapi-0.7.0
 
 To subsequently update to a newer version of yajl, pull the code:
 
-    $ git subtree pull -P vendor/src/yajl --squash git://github.com/lloyd/yajl.git <version>
+    $ git subtree pull -P vendor/src/hidapi --squash git://github.com/signal11/hidapi.git <version>
 
 #### Compiling
 
 ##### Mac OS X
 
-Commands executed when building yajl 2.0.4:
+Commands executed when building hidapi 0.7.0:
 
     $ cd vendor/src/yajl
     $ mkdir build
@@ -31,4 +31,5 @@ Refer to "vendor/yajl/BUILDING" for further information.
 
 #### References
 
-[GitHub](http://lloyd.github.com/yajl/)
+[HID API for Linux, Mac OS X, and Windows](http://www.signal11.us/oss/hidapi/)
+[GitHub](https://github.com/signal11/hidapi)
