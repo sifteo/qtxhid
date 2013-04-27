@@ -5,9 +5,6 @@ include(../../mkspecs/features/qtx_module.prf)
 
 include(hid.pri)
 
+# TODO: Make this conditional on the platform/backend
 INCLUDEPATH += \
-    ../../vendor/include
-
-macx {
-    # LIBS += $$(PWD)/../../vendor/lib/osx/x86_64/libyajl_s.a
-}
+    ../../vendor/src/hidapi/hidapi

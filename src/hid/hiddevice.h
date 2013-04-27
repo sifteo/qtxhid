@@ -7,6 +7,8 @@
 QTX_BEGIN_NAMESPACE
 
 
+class HidDevicePrivate;
+
 class HidDevice : public QObject
 {
     Q_OBJECT
@@ -14,8 +16,13 @@ class HidDevice : public QObject
 public:
     HidDevice(QObject * parent = 0);
     virtual ~HidDevice();
+    
+    bool open(quint8 bus, quint8 address);
         
+protected:
+    HidDevicePrivate *d_ptr;
 private:
+    Q_DECLARE_PRIVATE(HidDevice);
 };
 
 
