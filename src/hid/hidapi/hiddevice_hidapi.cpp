@@ -6,7 +6,8 @@ QTX_BEGIN_NAMESPACE
 
 HidDevicePrivate::HidDevicePrivate(HidDevice *q)
     : HidDevicePrivateData(q),
-      handle(0)
+      handle(0),
+      readerThread(0)
 {
 }
 
@@ -41,6 +42,11 @@ bool HidDevicePrivate::open(quint8 bus, quint8 address)
     // TODO: Don't hardcode vendor and product IDs
     handle = hid_open(0x22FA, 0x0101, NULL);
     qDebug() << "  handle: " << handle;
+    
+    hid_set_nonblocking( handle, 0 );
+    
+    readerThread = new HidApiReaderThread(handle, q_ptr);
+    readerThread->start();
     
     return true;
 }

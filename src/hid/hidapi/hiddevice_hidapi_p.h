@@ -2,6 +2,7 @@
 #define QTXHID_HIDDEVICE_HIDAPI_P_H
 
 #include "../hiddevice_p.h"
+#include "hidapireaderthread.h"
 #include <hidapi.h>
 
 QTX_BEGIN_NAMESPACE
@@ -17,6 +18,7 @@ public:
     
 public:
     hid_device *handle;
+    HidApiReaderThread *readerThread;
 };
 
 
