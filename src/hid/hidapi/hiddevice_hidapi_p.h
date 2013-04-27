@@ -2,6 +2,7 @@
 #define QTXHID_HIDDEVICE_HIDAPI_P_H
 
 #include "../hiddevice_p.h"
+#include <hidapi.h>
 
 QTX_BEGIN_NAMESPACE
 
@@ -15,6 +16,7 @@ public:
     bool open(quint8 bus, quint8 address);
     
 public:
+    hid_device *handle;
 };
 
 

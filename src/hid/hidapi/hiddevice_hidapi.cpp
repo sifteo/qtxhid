@@ -5,7 +5,8 @@ QTX_BEGIN_NAMESPACE
 
 
 HidDevicePrivate::HidDevicePrivate(HidDevice *q)
-    : HidDevicePrivateData(q)
+    : HidDevicePrivateData(q),
+      handle(0)
 {
 }
 
@@ -19,6 +20,7 @@ bool HidDevicePrivate::open(quint8 bus, quint8 address)
     qDebug() << "  bus: " << bus;
     qDebug() << "  address: " << address;
     
+    /*
     // Enumerate and print the HID devices on the system
     struct hid_device_info *devs, *cur_dev;
     
@@ -34,6 +36,11 @@ bool HidDevicePrivate::open(quint8 bus, quint8 address)
         cur_dev = cur_dev->next;
     }
     hid_free_enumeration(devs);
+    */
+    
+    // TODO: Don't hardcode vendor and product IDs
+    handle = hid_open(0x22FA, 0x0101, NULL);
+    qDebug() << "  handle: " << handle;
     
     return true;
 }
