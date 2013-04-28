@@ -15,6 +15,7 @@ public:
 public:
     quint16 vendorId;
     quint16 productId;
+    quint64 maxInputReportSize;
     HidDevice *q_ptr;
     Q_DECLARE_PUBLIC(HidDevice);
 };

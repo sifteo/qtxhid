@@ -45,7 +45,7 @@ bool HidDevicePrivate::open()
     // performance of the calling thread.
     hid_set_nonblocking(handle, 0);
     
-    readerThread = new HidApiReaderThread(handle, q_ptr);
+    readerThread = new HidApiReaderThread(handle, maxInputReportSize, q_ptr);
     readerThread->start();
     
     return true;
@@ -54,7 +54,10 @@ bool HidDevicePrivate::open()
 qint64 HidDevicePrivate::writeReport(const QByteArray & data, char reportId /* = 0 */)
 {
     qDebug() << "HidDevicePrivate::writeReport";
+    qDebug() << "  thread: " << QThread::currentThread();
     qDebug() << "  size: " << data.size();
+    
+    // TODO: Enqueue this to a separate thread for writing.
     
     QByteArray buffer(data);
     buffer.prepend(reportId);

@@ -11,13 +11,14 @@ QTX_BEGIN_NAMESPACE
 class HidApiReaderThread : public QThread
 {
 public:
-    HidApiReaderThread(hid_device *handle, QObject * parent = 0);
+    HidApiReaderThread(hid_device *handle, quint64 bufferSize, QObject * parent = 0);
     virtual ~HidApiReaderThread();
     
     void run();
     
 private:
     hid_device *mHandle;
+    quint64 mBufferSize;
 };
 
 

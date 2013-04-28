@@ -21,6 +21,8 @@ public:
     bool open(OpenMode mode);
     qint64 writeReport(const QByteArray & data, char reportId = 0);
     
+    void setMaxInputReportSize(qint64 size);
+    
 protected:
     qint64 readData(char * data, qint64 maxSize);
     qint64 writeData(const char * data, qint64 maxSize);

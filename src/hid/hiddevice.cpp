@@ -40,6 +40,12 @@ qint64 HidDevice::writeReport(const QByteArray & data, char reportId /* = 0 */)
     return d->writeReport(data, reportId);
 }
 
+void HidDevice::setMaxInputReportSize(qint64 size)
+{
+    Q_D(HidDevice);
+    d->maxInputReportSize = size;
+}
+
 qint64 HidDevice::readData(char * data, qint64 maxSize)
 {
     Q_UNUSED(data)
@@ -60,6 +66,7 @@ qint64 HidDevice::writeData(const char * data, qint64 maxSize)
 HidDevicePrivateData::HidDevicePrivateData(HidDevice *q)
     : vendorId(0),
       productId(0),
+      maxInputReportSize(64),
       q_ptr(q)
 {
 }
