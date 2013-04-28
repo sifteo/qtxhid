@@ -5,9 +5,17 @@ QTX_BEGIN_NAMESPACE
 
 
 HidDevice::HidDevice(QObject * parent /* = 0 */)
-    : QObject(parent),
+    : QIODevice(parent),
       d_ptr(new HidDevicePrivate(this))
 {
+}
+
+HidDevice::HidDevice(quint16 vid, quint16 pid, QObject * parent /* = 0 */)
+    : QIODevice(parent),
+      d_ptr(new HidDevicePrivate(this))
+{
+    d_ptr->vendorId = vid;
+    d_ptr->productId = pid;
 }
 
 HidDevice::~HidDevice()
@@ -18,19 +26,41 @@ HidDevice::~HidDevice()
     }
 }
 
-bool HidDevice::open(quint8 bus, quint8 address)
+bool HidDevice::open(OpenMode mode)
 {
-    qDebug() << "HidDevice::open";
-    qDebug() << "  bus: " << bus;
-    qDebug() << "  address: " << address;
+    Q_UNUSED(mode)
     
     Q_D(HidDevice);
-    return d->open(bus, address);
+    return d->open();
+}
+
+qint64 HidDevice::writeReport(const QByteArray & data, char reportId /* = 0 */)
+{
+    Q_D(HidDevice);
+    return d->writeReport(data, reportId);
+}
+
+qint64 HidDevice::readData(char * data, qint64 maxSize)
+{
+    Q_UNUSED(data)
+    Q_UNUSED(maxSize)
+    
+    return -1;
+}
+
+qint64 HidDevice::writeData(const char * data, qint64 maxSize)
+{
+    Q_UNUSED(data)
+    Q_UNUSED(maxSize)
+    
+    return -1;
 }
 
 
 HidDevicePrivateData::HidDevicePrivateData(HidDevice *q)
-    : q_ptr(q)
+    : vendorId(0),
+      productId(0),
+      q_ptr(q)
 {
 }
 

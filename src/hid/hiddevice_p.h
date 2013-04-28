@@ -13,6 +13,8 @@ public:
     virtual ~HidDevicePrivateData();
     
 public:
+    quint16 vendorId;
+    quint16 productId;
     HidDevice *q_ptr;
     Q_DECLARE_PUBLIC(HidDevice);
 };

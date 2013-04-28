@@ -21,8 +21,8 @@ void HidApiReaderThread::run()
     int res;
     
     while (1) {
-        memset(buf, 64, 0);
-        res = hid_read(mHandle, buf, 0);
+        memset(buf, 0, 64);
+        res = hid_read(mHandle, buf, 64);
         if (-1 == res)
         {
             printf( "error %d\n", res);

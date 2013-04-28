@@ -14,7 +14,8 @@ public:
     HidDevicePrivate(HidDevice *q);
     virtual ~HidDevicePrivate();
     
-    bool open(quint8 bus, quint8 address);
+    bool open();
+    qint64 writeReport(const QByteArray & data, char reportId = 0);
     
 public:
     hid_device *handle;

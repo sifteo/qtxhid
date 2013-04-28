@@ -15,11 +15,9 @@ HidDevicePrivate::~HidDevicePrivate()
 {
 }
 
-bool HidDevicePrivate::open(quint8 bus, quint8 address)
+bool HidDevicePrivate::open()
 {
     qDebug() << "HidDevicePrivate::open";
-    qDebug() << "  bus: " << bus;
-    qDebug() << "  address: " << address;
     
     /*
     // Enumerate and print the HID devices on the system
@@ -39,16 +37,35 @@ bool HidDevicePrivate::open(quint8 bus, quint8 address)
     hid_free_enumeration(devs);
     */
     
-    // TODO: Don't hardcode vendor and product IDs
-    handle = hid_open(0x22FA, 0x0101, NULL);
+    handle = hid_open(vendorId, productId, NULL);
     qDebug() << "  handle: " << handle;
     
-    hid_set_nonblocking( handle, 0 );
+    // Enable blocking (disable non-blocking).  Reads and writes will be
+    // buffered and performed in a separate thread so as not to impact
+    // performance of the calling thread.
+    hid_set_nonblocking(handle, 0);
     
     readerThread = new HidApiReaderThread(handle, q_ptr);
     readerThread->start();
     
     return true;
+}
+
+qint64 HidDevicePrivate::writeReport(const QByteArray & data, char reportId /* = 0 */)
+{
+    qDebug() << "HidDevicePrivate::writeReport";
+    qDebug() << "  size: " << data.size();
+    
+    QByteArray buffer(data);
+    buffer.prepend(reportId);
+    int res = hid_write(handle, (const unsigned char *)buffer.data(), buffer.size());
+    
+    if (-1 != res && 0 == reportId) {
+        res--;
+    }
+    
+    qDebug() << "  res: " << res;
+    return res;
 }
 
 
