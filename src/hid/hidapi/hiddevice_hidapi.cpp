@@ -19,6 +19,8 @@ bool HidDevicePrivate::open()
 {
     qDebug() << "HidDevicePrivate::open";
     
+    Q_Q(HidDevice);
+    
     /*
     // Enumerate and print the HID devices on the system
     struct hid_device_info *devs, *cur_dev;
@@ -47,6 +49,7 @@ bool HidDevicePrivate::open()
     
     readerThread = new HidApiReaderThread(handle, maxInputReportSize, q_ptr);
     readerThread->start();
+    q->connect(readerThread, SIGNAL(reportRead(const QByteArray &)), SLOT(onReportRead(const QByteArray &)));
     
     return true;
 }

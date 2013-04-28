@@ -34,6 +34,12 @@ bool HidDevice::open(OpenMode mode)
     return d->open();
 }
 
+QByteArray HidDevice::readReport()
+{
+    Q_D(HidDevice);
+    return d->lastReportReceived;
+}
+
 qint64 HidDevice::writeReport(const QByteArray & data, char reportId /* = 0 */)
 {
     Q_D(HidDevice);
@@ -60,6 +66,18 @@ qint64 HidDevice::writeData(const char * data, qint64 maxSize)
     Q_UNUSED(maxSize)
     
     return -1;
+}
+
+void HidDevice::onReportRead(const QByteArray & data)
+{
+    qDebug() << "HidDevice::onReportRead";
+    qDebug() << "  thread: " << QThread::currentThread();
+    qDebug() << "  size: " << data.size();
+    
+    Q_D(HidDevice);
+    
+    d->lastReportReceived = data;
+    emit readyRead();
 }
 
 

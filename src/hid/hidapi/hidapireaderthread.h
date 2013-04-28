@@ -10,11 +10,16 @@ QTX_BEGIN_NAMESPACE
 
 class HidApiReaderThread : public QThread
 {
+    Q_OBJECT
+    
 public:
     HidApiReaderThread(hid_device *handle, quint64 bufferSize, QObject * parent = 0);
     virtual ~HidApiReaderThread();
     
     void run();
+    
+signals:
+    void reportRead(const QByteArray & data);
     
 private:
     hid_device *mHandle;

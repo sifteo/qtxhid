@@ -19,6 +19,7 @@ public:
     virtual ~HidDevice();
     
     bool open(OpenMode mode);
+    QByteArray readReport();
     qint64 writeReport(const QByteArray & data, char reportId = 0);
     
     void setMaxInputReportSize(qint64 size);
@@ -26,7 +27,10 @@ public:
 protected:
     qint64 readData(char * data, qint64 maxSize);
     qint64 writeData(const char * data, qint64 maxSize);
-        
+
+private slots:
+    void onReportRead(const QByteArray & data);
+
 protected:
     HidDevicePrivate *d_ptr;
 private:

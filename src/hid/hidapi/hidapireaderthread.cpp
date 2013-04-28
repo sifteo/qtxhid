@@ -39,6 +39,10 @@ void HidApiReaderThread::run()
         //printf( "%02x ", buf[0]);
         printf( "\n");
         fflush(stdout);
+        
+        
+        qDebug() << "report read on thread: " << QThread::currentThread();
+        emit reportRead(QByteArray((char *)buf, res));
     }
     
     free(buf);
