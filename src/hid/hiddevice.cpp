@@ -76,6 +76,7 @@ void HidDevice::onReportRead(const QByteArray & data)
     
     Q_D(HidDevice);
     
+    // TODO: Put these in a queue, in case multiple need to be held.
     d->lastReportReceived = data;
     emit readyRead();
 }
